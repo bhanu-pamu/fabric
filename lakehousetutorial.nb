@@ -1,0 +1,11 @@
+df = spark.read.format("csv").option("header","true").load("Files/Finance/nyctrips.csv")
+df2=df.filter("fare_amount > 100")
+# df now is a Spark DataFrame containing CSV data from "Files/Finance/nyctrips.csv".
+#display(df2
+df2.write.format("delta").saveAsTable("nyctrips_external",path="Files/Ext/Trips")
+
+df = spark.read.format("csv").option("header","true").load("Files/Finance/nyctrips.csv")
+df2=df.filter("fare_amount < 100")
+# df now is a Spark DataFrame containing CSV data from "Files/Finance/nyctrips.csv".
+#display(df2
+df2.write.format("delta").mode("append").saveAsTable("nyctrips_external",path="Files/Ext/Trips")
